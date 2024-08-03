@@ -1,8 +1,8 @@
 <script setup>
-import { defineExpose, defineProps } from 'vue';
-defineExpose({ test })
+import { defineExpose, defineProps, onMounted, ref } from 'vue';
+defineExpose({ playAudio })
 
-const emit = defineEmits(['onClick'])
+const emit = defineEmits(['onMousedown'])
 
 const props = defineProps({
     id: {
@@ -11,22 +11,56 @@ const props = defineProps({
     }
 })
 
-function test() {
-    console.log(`tile - ${props.id} clicked`)
+const tile = ref(null)
+const tileAudio = ref(null)
+
+function playAudio(isUserClicked) {
+    // console.log(`tile - ${props.id} clicked`)
+
+    if (!isUserClicked) {
+        tile.value.classList.add('tile_active')
+        
+        setTimeout(() => {
+            tile.value.classList.remove('tile_active')
+        }, 200)
+    }
+
+    if (tileAudio.value.paused) {
+        // здесь возвращается промис который выдает ошибку совместно с showsqs
+        tileAudio.value.play()
+    } else {
+        tileAudio.value.pause()
+        tileAudio.value.currentTime = 0
+        tileAudio.value.play()
+    }
 }
+
+function createAudio(tileId) {
+    const audio = new Audio()
+    audio.preload = 'auto'
+    audio.src = `/src/assets/sounds/${tileId}.mp3`
+    audio.volume = .5
+    audio.playbackRate = 1
+
+    return audio
+}
+
+onMounted(() => {
+    tileAudio.value = createAudio(props.id)
+    tile.value.classList.add(`tile_${props.id}`)
+    // console.log(tile.value, props.id)
+})
+
 </script>
 
 <template>
-    <div class="tile" @click="emit('onClick', props.id)"></div>
+    <div ref="tile" class="tile" @mousedown="emit('onMousedown', props.id)"></div>
 </template>
 
 <style lang="scss" scoped>
 .tile {
-    filter: hue-rotate(10rad);
-
     width: 100%;
     height: 100%;
-    background-color: red;
     border-radius: 6px;
     box-shadow: 0px 0px 5px $gray inset;
     opacity: .7;
@@ -46,6 +80,34 @@ function test() {
     &_active {
         box-shadow: 0px 0px 15px $gray inset;
         opacity: .95;
+    }
+
+    &_0 {
+        background-color: #e9e9e9;
+    }
+
+    &_1 {
+        background-color: #f45a5a;
+    }
+
+    &_2 {
+        background-color: #4ee62f;
+    }
+
+    &_3 {
+        background-color: #fff22f;
+    }
+
+    &_4 {
+        background-color: #45ecec;
+    }
+
+    &_5 {
+        background-color: #3761e1;
+    }
+
+    &_6 {
+        background-color: #d2389d;
     }
 }
 </style>

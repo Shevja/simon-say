@@ -11,7 +11,7 @@ const dificult = ref(0)
 
 <template>
   <div class="container">
-    <TheBoard :tiles="tilesCount" :dificult="dificult" />
+    <TheBoard :tilesCount="tilesCount" :dificult="dificult" />
   </div>
 </template>
 

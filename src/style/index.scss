@@ -1,5 +1,9 @@
 @import './libs/normalize.scss';
+@import './libs/fonts.scss';
 
 @import './base/variables.scss';
 @import './base/mixins.scss';
 @import './base/default.scss';
+
+@import './components/button.scss';
+@import './components/input.scss';

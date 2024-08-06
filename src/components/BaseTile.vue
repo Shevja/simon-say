@@ -1,5 +1,5 @@
 <script setup>
-import { defineExpose, defineProps, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 defineExpose({ playAudio })
 
 const emit = defineEmits(['onMousedown'])
@@ -61,11 +61,10 @@ onMounted(() => {
 .tile {
     width: 100%;
     height: 100%;
-    border-radius: 6px;
     box-shadow: 0px 0px 5px $gray inset;
     opacity: .7;
 
-    transition: box-shadow .05s;
+    transition: box-shadow .05s, opacity .2s;
 
     &:hover {
         cursor: pointer;
@@ -83,31 +82,31 @@ onMounted(() => {
     }
 
     &_0 {
-        background-color: #e9e9e9;
+        background-color: $tileWhite;
     }
 
     &_1 {
-        background-color: #f45a5a;
+        background-color: $tileRed;
     }
 
     &_2 {
-        background-color: #4ee62f;
+        background-color: $tileGreen;
     }
 
     &_3 {
-        background-color: #fff22f;
+        background-color: $tileYellow;
     }
 
     &_4 {
-        background-color: #45ecec;
+        background-color: $tileTurquoise;
     }
 
     &_5 {
-        background-color: #3761e1;
+        background-color: $tileBlue;
     }
 
     &_6 {
-        background-color: #d2389d;
+        background-color: $tileViolet;
     }
 }
 </style>

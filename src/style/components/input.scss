@@ -1,0 +1,65 @@
+.input {
+    background-color: $grayWhite;
+    border: none;
+    border-bottom: 4px solid transparent;
+    padding: 5px 10px 0;
+    font-size: 18px;
+    max-width: 240px;
+    border-radius: 4px;
+    
+    transition:
+        background-color 0.1s,
+        border-color 0.1s;
+
+    &:not(:placeholder-shown) {
+        border-color: $blue;
+    }
+
+    &:focus {
+        background-color: $white;
+    }
+
+    &[type="radio"] {
+        appearance: none;
+        padding: 0;
+        margin: 0;
+        border-radius: 100%;
+        border: none;
+        width: 16px;
+        height: 16px;
+        position: relative;
+        border: 1px solid transparent;
+        background-color: $grayWhite;
+        transition:
+            background-color 0.1s,
+            border-color 0.2s;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $white;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: $blue;
+            left: 50%;
+            top: 50%;
+            border-radius: 100%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        &:checked {
+            background-color: transparent;
+            border-color: $blue;
+
+            &::before {
+                opacity: 1;
+            }
+        }
+    }
+}
